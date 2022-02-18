@@ -14,12 +14,16 @@ RUN yum update -y \
 && yum install docker -y
 
 
+
+
 FROM base as configure
 WORKDIR /home
-RUN sudo userad centos \
+RUN sudo adduser centos \
 && echo zzn3qc^Fefcz | passwd centos --stdin \
-&& echo "centos ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-&& sudo sed -i "/^[^#]*PasswordAuthentication[[:space:]]no/c\\PasswordAuthentication yes" /etc/ssh/sshd_config \
+&& echo "centos ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
+&& sudo sed -i "/^[^#]*PasswordAuthentication[[:space:]]no/c\\PasswordAuthentication yes" /etc/ssh/sshd_config
+
+
 
 
 FROM configure as final
@@ -28,6 +32,8 @@ ENTRYPOINT /usr/sbin/init
 CMD ["systemctl","restart","sshd.service"]
 EXPOSE 3002
 VOLUME /var/run/docker.sock:/var/run/docker.sock
+
+
 
 
 LABEL ImageTitle="Centos 7"
