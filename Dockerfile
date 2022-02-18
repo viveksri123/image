@@ -11,7 +11,7 @@ RUN yum update -y \
 && yum install -y epel-release \
 && yum install openssh-server -y \
 && yum install iptables -y \
-yum install docker -y
+&& yum install docker -y
 
 
 FROM base as configure
