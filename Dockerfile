@@ -30,7 +30,7 @@ FROM configure as final
 WORKDIR /home
 ENTRYPOINT /usr/sbin/init
 CMD ["systemctl","restart","sshd.service"]
-EXPOSE 3002
+EXPOSE 80
 VOLUME /var/run/docker.sock:/var/run/docker.sock
 
 
